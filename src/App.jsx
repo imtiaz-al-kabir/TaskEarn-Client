@@ -6,6 +6,7 @@ import DashboardLayout from './layouts/DashboardLayout.jsx';
 import Home from './pages/Home.jsx';
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
+import About from './pages/About.jsx';
 import DashboardIndex from './pages/dashboard/DashboardIndex.jsx';
 import WorkerHome from './pages/dashboard/WorkerHome.jsx';
 import TaskList from './pages/dashboard/TaskList.jsx';
@@ -35,6 +36,7 @@ export default function App() {
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
+            <Route path="about" element={<About />} />
           </Route>
           <Route
             path="/dashboard"

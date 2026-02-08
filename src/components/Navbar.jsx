@@ -34,7 +34,7 @@ export default function Navbar() {
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'About', path: '/#about' }, // Placeholder for now
+    { name: 'About', path: '/about' },
   ];
 
   return (
