@@ -40,7 +40,7 @@ const faqs = [
 
 export default function Home() {
   const [topWorkers, setTopWorkers] = useState([]);
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
 
   useEffect(() => {
     api.get('/users/top-workers').then(({ data }) => setTopWorkers(data)).catch(() => setTopWorkers([]));
@@ -92,19 +92,27 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Link
-              to={user ? "/dashboard" : "/register"}
-              className="btn-primary flex items-center gap-2 group text-lg px-8 py-4"
-            >
-              Start Earning Now
-              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link
-              to={user ? "/dashboard/add-task" : "/login"}
-              className="btn-secondary flex items-center gap-2 text-lg px-8 py-4"
-            >
-              Post a Task
-            </Link>
+            {authLoading ? (
+              <div className="h-14 flex items-center justify-center">
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-500" />
+              </div>
+            ) : (
+              <>
+                <Link
+                  to={user ? "/dashboard" : "/register"}
+                  className="btn-primary flex items-center gap-2 group text-lg px-8 py-4"
+                >
+                  {user ? "Go to Dashboard" : "Start Earning Now"}
+                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link
+                  to={user ? "/dashboard/add-task" : "/login"}
+                  className="btn-secondary flex items-center gap-2 text-lg px-8 py-4"
+                >
+                  {user ? "Add New Task" : "Post a Task"}
+                </Link>
+              </>
+            )}
           </motion.div>
         </div>
       </section>
@@ -320,10 +328,16 @@ export default function Home() {
             <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
               Join thousands of users who are already earning by completing simple tasks on TaskEarn.
             </p>
-            <Link to={user ? "/dashboard" : "/register"} className="btn-primary text-xl px-10 py-5 inline-flex items-center gap-3">
-              {user ? "Go to Dashboard" : "Create Free Account"}
-              <ArrowRight size={24} />
-            </Link>
+            {authLoading ? (
+              <div className="h-20 flex items-center justify-center">
+                <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-brand-500" />
+              </div>
+            ) : (
+              <Link to={user ? "/dashboard" : "/register"} className="btn-primary text-xl px-10 py-5 inline-flex items-center gap-3">
+                {user ? "Go to Dashboard" : "Create Free Account"}
+                <ArrowRight size={24} />
+              </Link>
+            )}
           </div>
         </div>
       </section>
