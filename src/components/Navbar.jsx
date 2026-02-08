@@ -86,7 +86,7 @@ export default function Navbar() {
 
               {user ? (
                 <>
-                  <Link to="/dashboard" className="btn-secondary flex items-center gap-2 text-sm !px-4 !py-2">
+                  <Link to="/" className="btn-secondary flex items-center gap-2 text-sm !px-4 !py-2">
                     <LayoutDashboard size={16} />
                     <span>Dashboard</span>
                   </Link>
@@ -154,7 +154,7 @@ export default function Navbar() {
                       <p className="text-xs text-brand-400">{user.coin} Coins</p>
                     </div>
                   </div>
-                  <Link to="/dashboard" className="btn-secondary w-full justify-center">Dashboard</Link>
+                  <Link to="/" className="btn-secondary w-full justify-center">Dashboard</Link>
                   <a href="https://github.com/imtiaz-al-kabir/react-increment" target="_blank" rel="noopener noreferrer" className="btn-secondary w-full justify-center border-brand-500/30 text-brand-400">Join as Developer</a>
                   <button onClick={handleLogout} className="btn-secondary w-full justify-center text-red-400 hover:bg-red-500/10 hover:text-red-300">Logout</button>
                 </div>
