@@ -1,6 +1,13 @@
 # Micro Task Client (TaskEarn – React Frontend)
 
-**Standalone React application** for the TaskEarn micro-tasking platform. This is a separate application from the server.
+**Standalone React application** for the TaskEarn micro-tasking platform.
+
+- **Live Site:** [https://micro-task-project.web.app/](https://micro-task-project.web.app/)
+
+## Admin Credentials
+- **Username/Email:** admin@taskearn.com
+- **Password:** Admin123!
+
 
 ## Tech Stack
 
@@ -75,12 +82,12 @@ micro-task-client/
 
 ## Key Features
 
-- **Authentication:** Firebase Email/Password + Google Sign-In
-- **Private Routes:** Role-based access control
-- **Persistent Auth:** Access token stored in localStorage, persists on reload
-- **Responsive Design:** Mobile-first, works on all devices
-- **Animations:** Framer Motion for smooth transitions
-- **Image Upload:** ImageBB integration (optional)
+- **Modern Glassmorphism UI:** Stunning dark-themed interface with glass effects and smooth Framer Motion animations.
+- **Role-Based Dashboards:** Distinct experiences for Workers, Buyers, and Admins via Private Routes.
+- **Secure Authentication:** Firebase Email/Password + Google Sign-In with JWT-based session management.
+- **Submission & Proof Management:** Workers can submit proof with images (via ImgBB integration).
+- **Payment Integration:** Buyers can securely purchase coins using Stripe.
+- **Responsive Layout:** Optimized for mobile, tablet, and desktop devices.
 
 ## Routes
 
