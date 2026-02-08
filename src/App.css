@@ -1,0 +1,10 @@
+#root {
+  min-height: 100%;
+}
+
+@media (max-width: 640px) {
+  .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+  }
+}
