@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, EffectCoverflow } from 'swiper/modules';
 import api from '../lib/api.js';
+import { useAuth } from '../context/AuthContext.jsx';
 import { ArrowRight, Star, Shield, Zap, TrendingUp, Users, DollarSign, CheckCircle2, MessageCircle, BarChart3, HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import clsx from 'clsx';
 import 'swiper/css';
@@ -39,6 +40,7 @@ const faqs = [
 
 export default function Home() {
   const [topWorkers, setTopWorkers] = useState([]);
+  const { user } = useAuth();
 
   useEffect(() => {
     api.get('/users/top-workers').then(({ data }) => setTopWorkers(data)).catch(() => setTopWorkers([]));
@@ -91,14 +93,14 @@ export default function Home() {
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Link
-              to="/register"
+              to={user ? "/dashboard" : "/register"}
               className="btn-primary flex items-center gap-2 group text-lg px-8 py-4"
             >
               Start Earning Now
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
-              to="/login"
+              to={user ? "/dashboard/add-task" : "/login"}
               className="btn-secondary flex items-center gap-2 text-lg px-8 py-4"
             >
               Post a Task
@@ -318,8 +320,8 @@ export default function Home() {
             <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
               Join thousands of users who are already earning by completing simple tasks on TaskEarn.
             </p>
-            <Link to="/register" className="btn-primary text-xl px-10 py-5 inline-flex items-center gap-3">
-              Create Free Account
+            <Link to={user ? "/dashboard" : "/register"} className="btn-primary text-xl px-10 py-5 inline-flex items-center gap-3">
+              {user ? "Go to Dashboard" : "Create Free Account"}
               <ArrowRight size={24} />
             </Link>
           </div>

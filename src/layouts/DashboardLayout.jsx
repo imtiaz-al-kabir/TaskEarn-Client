@@ -1,4 +1,4 @@
-import { Outlet, NavLink } from 'react-router-dom';
+import { Outlet, NavLink, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import NotificationPopover from '../components/NotificationPopover.jsx';
 import {
@@ -45,14 +45,14 @@ export default function DashboardLayout() {
 
       {/* Sidebar */}
       <aside className="w-full lg:w-72 lg:h-screen lg:fixed lg:top-0 lg:left-0 z-20 border-b lg:border-r border-white/5 bg-dark-950/80 backdrop-blur-xl flex flex-col">
-        <div className="p-6 flex items-center gap-3 border-b border-white/5">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-brand-500/20">
+        <Link to="/" className="p-6 flex items-center gap-3 border-b border-white/5 hover:bg-white/5 transition-colors group">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-brand-500/20 group-hover:scale-105 transition-transform">
             T
           </div>
-          <span className="font-display font-bold text-xl tracking-wide text-white">
+          <span className="font-display font-bold text-xl tracking-wide text-white group-hover:text-brand-400 transition-colors">
             TaskEarn
           </span>
-        </div>
+        </Link>
 
         <div className="p-4 flex items-center gap-3 bg-white/5 mx-4 mt-6 rounded-xl border border-white/5">
           <img
