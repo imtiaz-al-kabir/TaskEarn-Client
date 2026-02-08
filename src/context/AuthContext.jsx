@@ -9,7 +9,9 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(() => {
     try {
       const u = localStorage.getItem('user');
-      return u ? JSON.parse(u) : null;
+      const parsed = u ? JSON.parse(u) : null;
+      if (parsed && parsed.role) parsed.role = parsed.role.toLowerCase();
+      return parsed;
     } catch {
       return null;
     }
@@ -23,8 +25,9 @@ export function AuthProvider({ children }) {
       if (stored && token) {
         api.get('/auth/me')
           .then(({ data }) => {
-            setUser({ ...data, role: data.role?.toLowerCase() });
-            localStorage.setItem('user', JSON.stringify({ ...data, role: data.role?.toLowerCase() }));
+            const userData = { ...data, role: data.role?.toLowerCase() };
+            setUser(userData);
+            localStorage.setItem('user', JSON.stringify(userData));
           })
           .catch(() => {
             setUser(null);
@@ -44,10 +47,20 @@ export function AuthProvider({ children }) {
         localStorage.setItem('accessToken', token);
         try {
           const { data } = await api.get('/auth/me');
-          setUser({ ...data, role: data.role?.toLowerCase(), uid: firebaseUser.uid });
-          localStorage.setItem('user', JSON.stringify({ ...data, role: data.role?.toLowerCase(), uid: firebaseUser.uid }));
-        } catch {
-          setUser({ email: firebaseUser.email, name: firebaseUser.displayName, photoURL: firebaseUser.photoURL });
+          const userData = { ...data, role: data.role?.toLowerCase(), uid: firebaseUser.uid };
+          console.log('AuthContext: User logged in', userData);
+          setUser(userData);
+          localStorage.setItem('user', JSON.stringify(userData));
+        } catch (e) {
+          console.error('AuthContext: API fetch failed', e);
+          const stored = localStorage.getItem('user');
+          const savedRole = stored ? JSON.parse(stored).role?.toLowerCase() : undefined;
+          setUser({
+            email: firebaseUser.email,
+            name: firebaseUser.displayName,
+            photoURL: firebaseUser.photoURL,
+            role: savedRole
+          });
         }
       } else {
         const token = localStorage.getItem('accessToken');
@@ -55,8 +68,9 @@ export function AuthProvider({ children }) {
         if (stored && token) {
           try {
             const { data } = await api.get('/auth/me');
-            setUser({ ...data, role: data.role?.toLowerCase() });
-            localStorage.setItem('user', JSON.stringify({ ...data, role: data.role?.toLowerCase() }));
+            const userData = { ...data, role: data.role?.toLowerCase() };
+            setUser(userData);
+            localStorage.setItem('user', JSON.stringify(userData));
           } catch {
             setUser(null);
             localStorage.removeItem('user');

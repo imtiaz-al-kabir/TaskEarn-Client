@@ -75,9 +75,18 @@ export default function Navbar() {
             <div className="h-6 w-px bg-white/10" />
 
             <div className="flex items-center gap-4">
+              <a
+                href="https://github.com/imtiaz-al-kabir/react-increment"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary text-sm !px-4 !py-2 border-brand-500/30 hover:border-brand-500"
+              >
+                Join as Developer
+              </a>
+
               {user ? (
                 <>
-                  <Link to="/dashboard" className="btn-secondary flex items-center gap-2 text-sm !py-1.5 !px-3">
+                  <Link to="/dashboard" className="btn-secondary flex items-center gap-2 text-sm !px-4 !py-2">
                     <LayoutDashboard size={16} />
                     <span>Dashboard</span>
                   </Link>
@@ -90,7 +99,7 @@ export default function Navbar() {
                   <Link to="/dashboard/profile" className="relative group">
                     <img
                       src={user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'User')}&background=random`}
-                      alt=""
+                      alt="Profile"
                       className="w-9 h-9 rounded-full object-cover border-2 border-transparent group-hover:border-brand-400 transition-all"
                     />
                   </Link>
@@ -109,7 +118,7 @@ export default function Navbar() {
                     Log In
                   </Link>
                   <Link to="/register" className="btn-primary text-sm !px-5 !py-2">
-                    Get Started
+                    Register
                   </Link>
                 </>
               )}
@@ -146,12 +155,14 @@ export default function Navbar() {
                     </div>
                   </div>
                   <Link to="/dashboard" className="btn-secondary w-full justify-center">Dashboard</Link>
+                  <a href="https://github.com/imtiaz-al-kabir/react-increment" target="_blank" rel="noopener noreferrer" className="btn-secondary w-full justify-center border-brand-500/30 text-brand-400">Join as Developer</a>
                   <button onClick={handleLogout} className="btn-secondary w-full justify-center text-red-400 hover:bg-red-500/10 hover:text-red-300">Logout</button>
                 </div>
               ) : (
                 <div className="grid grid-cols-2 gap-3">
                   <Link to="/login" className="btn-secondary justify-center text-center">Log In</Link>
-                  <Link to="/register" className="btn-primary justify-center text-center">Sign Up</Link>
+                  <Link to="/register" className="btn-primary justify-center text-center">Register</Link>
+                  <a href="https://github.com/imtiaz-al-kabir/react-increment" target="_blank" rel="noopener noreferrer" className="col-span-2 btn-secondary justify-center text-center border-brand-500/30 text-brand-400">Join as Developer</a>
                 </div>
               )}
               <div className="h-px bg-white/10 my-2" />

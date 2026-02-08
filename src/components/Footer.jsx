@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom';
 import { Linkedin, Facebook, Github } from 'lucide-react';
 
 const socials = [
-  { name: 'LinkedIn', href: 'https://linkedin.com', icon: Linkedin },
-  { name: 'Facebook', href: 'https://facebook.com', icon: Facebook },
-  { name: 'GitHub', href: 'https://github.com', icon: Github },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/imtiaz-al-kabir/', icon: Linkedin },
+  { name: 'Facebook', href: 'https://www.facebook.com/imtiaz.alkabir', icon: Facebook },
+  { name: 'GitHub', href: 'https://github.com/imtiaz-al-kabir/react-increment', icon: Github },
 ];
 
 export default function Footer() {
