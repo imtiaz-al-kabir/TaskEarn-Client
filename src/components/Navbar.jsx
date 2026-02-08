@@ -75,14 +75,7 @@ export default function Navbar() {
             <div className="h-6 w-px bg-white/10" />
 
             <div className="flex items-center gap-4">
-              <a
-                href="https://github.com/imtiaz-al-kabir/react-increment"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary text-sm !px-4 !py-2 border-brand-500/30 hover:border-brand-500"
-              >
-                Join as Developer
-              </a>
+
 
               {user ? (
                 <>
@@ -155,14 +148,14 @@ export default function Navbar() {
                     </div>
                   </div>
                   <Link to="/dashboard" className="btn-secondary w-full justify-center">Dashboard</Link>
-                  <a href="https://github.com/imtiaz-al-kabir/react-increment" target="_blank" rel="noopener noreferrer" className="btn-secondary w-full justify-center border-brand-500/30 text-brand-400">Join as Developer</a>
+
                   <button onClick={handleLogout} className="btn-secondary w-full justify-center text-red-400 hover:bg-red-500/10 hover:text-red-300">Logout</button>
                 </div>
               ) : (
                 <div className="grid grid-cols-2 gap-3">
                   <Link to="/login" className="btn-secondary justify-center text-center">Log In</Link>
                   <Link to="/register" className="btn-primary justify-center text-center">Register</Link>
-                  <a href="https://github.com/imtiaz-al-kabir/react-increment" target="_blank" rel="noopener noreferrer" className="col-span-2 btn-secondary justify-center text-center border-brand-500/30 text-brand-400">Join as Developer</a>
+
                 </div>
               )}
               <div className="h-px bg-white/10 my-2" />

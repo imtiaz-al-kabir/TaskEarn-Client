@@ -5,6 +5,7 @@ import api from '../../lib/api.js';
 import { useAuth } from '../../context/AuthContext.jsx';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Coins } from 'lucide-react';
+import Swal from 'sweetalert2';
 
 const stripePromise = import.meta.env.VITE_STRIPE_PK ? loadStripe(import.meta.env.VITE_STRIPE_PK) : null;
 
@@ -53,7 +54,16 @@ function CheckoutForm({ pkg, onSuccess }) {
           amount: pkg.price,
           paymentIntentId: paymentIntent.id
         });
-        alert(`Success! ${pkg.coins} coins added!`);
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Payment Successful',
+          text: `${pkg.coins} coins have been added to your account!`,
+          background: '#1e293b',
+          color: '#f1f5f9',
+          confirmButtonColor: '#3b82f6'
+        });
+
         onSuccess();
       }
     } catch (err) {
@@ -132,7 +142,6 @@ export default function PurchaseCoin() {
     const { data } = await api.get('/auth/me');
     setUser(data);
     setSelectedPkg(null);
-    alert('Coins added to your account successfully!');
   };
 
   if (loading) {

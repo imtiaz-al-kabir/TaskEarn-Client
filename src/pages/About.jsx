@@ -124,6 +124,52 @@ export default function About() {
                 </div>
             </section>
 
+            {/* Roles Section */}
+            <section className="max-w-7xl mx-auto mb-32">
+                <div className="text-center mb-16">
+                    <h2 className="text-4xl font-display font-bold text-white mb-4">Our Roles</h2>
+                    <p className="text-slate-400">Different ways to participate in our growing ecosystem.</p>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-8">
+                    {[
+                        {
+                            role: 'Worker',
+                            desc: 'Earn coins by completing micro-tasks like surveys, testing apps, and moderating content.',
+                            icon: Zap,
+                            color: 'text-brand-400'
+                        },
+                        {
+                            role: 'Buyer',
+                            desc: 'Post tasks and scale your business operations with high-quality, verified human output.',
+                            icon: Target,
+                            color: 'text-blue-400'
+                        },
+                        {
+                            role: 'Admin',
+                            desc: 'Oversees platform operations by managing user roles, addressing reports, and maintaining system integrity.',
+                            icon: ShieldCheck,
+                            color: 'text-purple-400'
+                        }
+                    ].map((r, i) => (
+                        <motion.div
+                            key={r.role}
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: i * 0.1 }}
+                            className="glass p-8 rounded-2xl border-white/5 text-center flex flex-col items-center"
+                        >
+                            <div className={`mb-6 ${r.color}`}>
+                                <r.icon size={40} />
+                            </div>
+                            <h4 className="text-xl font-bold text-white mb-3">{r.role}</h4>
+                            <p className="text-slate-400 text-sm leading-relaxed">{r.desc}</p>
+                        </motion.div>
+                    ))}
+                </div>
+            </section>
+
             {/* CTA section */}
             <section className="max-w-4xl mx-auto text-center">
                 <div className="glass p-12 rounded-3xl border-brand-500/20 relative overflow-hidden">

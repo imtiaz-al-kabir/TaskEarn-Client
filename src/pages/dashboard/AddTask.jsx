@@ -3,9 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../lib/api.js';
 import { uploadImage, hasImgBB } from '../../lib/imgbb.js';
 import { motion } from 'framer-motion';
+import Swal from 'sweetalert2';
+import { useAuth } from '../../context/AuthContext.jsx';
 
 export default function AddTask() {
   const navigate = useNavigate();
+  const { setUser } = useAuth();
   const [form, setForm] = useState({
     task_title: '',
     task_detail: '',
@@ -77,7 +80,18 @@ export default function AddTask() {
         completion_date: new Date(form.completion_date).toISOString(),
       });
       console.log('AddTask: Success:', res.data);
-      alert('Task Created Successfully!');
+
+      // Refresh user to update balance instantly
+      api.get('/auth/me').then(({ data }) => setUser(data)).catch(() => { });
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Task Created!',
+        text: 'Your new task has been posted successfully.',
+        background: '#1e293b',
+        color: '#f1f5f9',
+        confirmButtonColor: '#3b82f6'
+      });
 
       setForm({ task_title: '', task_detail: '', required_workers: '', payable_amount: '', completion_date: '', submission_info: '', task_image_url: '' });
       setError('');
@@ -86,7 +100,15 @@ export default function AddTask() {
       console.error('AddTask: Error:', err);
       const msg = err.response?.data?.message || 'Failed to add task.';
       setError(msg);
-      alert('Error: ' + msg);
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Submission Failed',
+        text: msg,
+        background: '#1e293b',
+        color: '#f1f5f9',
+        confirmButtonColor: '#ef4444'
+      });
     } finally {
       setLoading(false);
     }
