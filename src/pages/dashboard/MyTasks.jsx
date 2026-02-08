@@ -7,8 +7,18 @@ export default function MyTasks() {
   const [edit, setEdit] = useState(null);
   const [editForm, setEditForm] = useState({ task_title: '', task_detail: '', submission_info: '' });
 
+  const [error, setError] = useState('');
+
   useEffect(() => {
-    api.get('/tasks/buyer/mine').then(({ data }) => setTasks(data)).catch(() => {});
+    api.get('/tasks/buyer/mine')
+      .then(({ data }) => {
+        console.log('MyTasks: Fetched tasks', data);
+        setTasks(data);
+      })
+      .catch((err) => {
+        console.error('MyTasks: Fetch failed', err);
+        setError(err.response?.data?.message || 'Failed to load tasks');
+      });
   }, []);
 
   const handleUpdate = (t) => {
@@ -22,7 +32,7 @@ export default function MyTasks() {
       await api.patch('/tasks/' + edit._id, editForm);
       setTasks((prev) => prev.map((x) => (x._id === edit._id ? { ...x, ...editForm } : x)));
       setEdit(null);
-    } catch (_) {}
+    } catch (_) { }
   };
 
   const handleDelete = async (id) => {
@@ -31,12 +41,13 @@ export default function MyTasks() {
       await api.delete('/tasks/' + id);
       setTasks((prev) => prev.filter((t) => t._id !== id));
       setEdit(null);
-    } catch (_) {}
+    } catch (_) { }
   };
 
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold text-amber-400">My Tasks</h1>
+      {error && <p className="text-red-400 bg-red-900/20 p-3 rounded border border-red-500/30">{error}</p>}
       <div className="overflow-x-auto rounded-lg border border-slate-700">
         <table className="w-full text-sm text-left">
           <thead className="bg-slate-800 text-slate-300">

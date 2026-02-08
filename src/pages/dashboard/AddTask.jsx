@@ -26,7 +26,7 @@ export default function AddTask() {
     try {
       const url = await uploadImage(file);
       if (url) setForm((f) => ({ ...f, task_image_url: url }));
-    } catch (_) {}
+    } catch (_) { }
     setUploadingImg(false);
   };
 
@@ -67,24 +67,26 @@ export default function AddTask() {
     }
     setLoading(true);
     try {
-      const { data: user } = await api.get('/auth/me');
-      if (user.coin < total) {
-        setError('Not enough coins. Purchase coins first.');
-        setLoading(false);
-        navigate('/dashboard/purchase-coin');
-        return;
-      }
-      await api.post('/tasks', {
+      console.log('AddTask: Creating task...');
+
+      console.log('AddTask: Sending task data...', { ...form, required_workers, payable_amount });
+      const res = await api.post('/tasks', {
         ...form,
         required_workers,
         payable_amount,
         completion_date: new Date(form.completion_date).toISOString(),
       });
+      console.log('AddTask: Success:', res.data);
+      alert('Task Created Successfully!');
+
       setForm({ task_title: '', task_detail: '', required_workers: '', payable_amount: '', completion_date: '', submission_info: '', task_image_url: '' });
       setError('');
       navigate('/dashboard/my-tasks');
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to add task.');
+      console.error('AddTask: Error:', err);
+      const msg = err.response?.data?.message || 'Failed to add task.';
+      setError(msg);
+      alert('Error: ' + msg);
     } finally {
       setLoading(false);
     }
